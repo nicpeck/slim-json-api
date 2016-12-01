@@ -187,4 +187,29 @@ $app->add(function ($request, $response, $next) {
   return $next($request->withAttribute('token',$token), $response);
 });
 
+$container['notFoundHandler'] = function ($c) {
+  return function ($request, $response) use ($c) {
+    return $c['response']->withStatus(404)->withJson(array(
+      "success" => false,
+      "message" => "This ressource doesn't exist"
+    ));
+  };
+};
+$container['notAllowedHandler'] = function ($c) {
+  return function ($request, $response) use ($c) {
+    return $c['response']->withStatus(400)->withJson(array(
+      "success" => false,
+      "message" => "Method {$c['request']->getMethod()} is not allowed here"
+    ));
+  };
+};
+$container['errorHandler'] = function ($c) {
+  return function ($request, $response) use ($c) {
+    return $c['response']->withStatus(500)->withJson(array(
+      "success" => false,
+      "message" => "Something went wrong, but we're not sure what"
+    ));
+  };
+};
+
 $app->run();
