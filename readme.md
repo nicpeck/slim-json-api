@@ -19,13 +19,13 @@ GET | `/api/v1/authenticate` | logs in using HTTP Basic Authorisation and return
 ## Authentication
 
 There are 2 steps to making authorised requests:
+
 1. Get your login token sending HTTP Basic Auth header to the authenticate endpoint (Username & password should be in the format `username:password` and base64 encoded)
+2. Send your token in a Bearer Auth header.
 ```
 GET /api/v1/authenticate
 Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ
-```
-2. Send your token in a Bearer Auth header.
-```
+
 GET /api/v1/resource
 Authorization: Bearer yDTVTfpbFlv8K39AgmWBT619sM+udFfulHGFAp07ECU
 ```
@@ -34,7 +34,6 @@ Each request attempts to extract the bearer token, but doesn't attempt to valida
 
 For simplicity, this example stores user details in a hard-coded array. This should obviously be replaced with a different solution, as should the logic of looking up a valid user.
 
-It's a good idea to list endpoints as public where appropriate, as no having to look up users each request will improve performance. The authenticate endpoint *must* be public, because it's impossible to pass your token before you've got it.
 
 ## Setup notes
 
