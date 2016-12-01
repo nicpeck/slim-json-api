@@ -1,0 +1,6 @@
+{
+    "require": {
+        "slim/slim": "^3.6",
+        "hautelook/phpass": "1.0.0"
+    }
+}
